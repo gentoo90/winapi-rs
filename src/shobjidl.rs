@@ -36,6 +36,33 @@ interface IShellItem(IShellItemVtbl): IUnknown(IUnknownVtbl) {
     fn Compare(&mut self, psi: *mut IShellItem, hint: SICHINTF, piOrder: *mut ::c_int) -> ::HRESULT
 }
 );
+//10795
+#[repr(i32)] #[derive(Clone, Copy, Debug)]
+pub struct DVTARGETDEVICE {
+    pub tdSize: ::DWORD,
+    pub tdDriverNameOffset: ::WORD,
+    pub tdDeviceNameOffset: ::WORD,
+    pub tdPortNameOffset: ::WORD,
+    pub tdExtDevmodeOffset: ::WORD,
+    pub tdData: [::BYTE; 1],
+}
+pub struct CLIPFORMAT;
+pub type LPCLIPFORMAT = *mut CLIPFORMAT;
+pub struct FORMATETC {
+    cfFormat: CLIPFORMAT,
+    ptd: *mut DVTARGETDEVICE,
+    dwAspect: ::DWORD,
+    lindex: ::LONG,
+    tymed: ::DWORD,
+}
+RIDL!(
+interface IEnumFORMATETC(IEnumFORMATETCVtbl): IUnknown(IUnknownVtbl) {
+    fn Next(&mut self, celt: ::ULONG, rgelt: *mut FORMATETC, pceltFetched: *mut ::ULONG) -> ::HRESULT,
+    fn Skip(&mut self, celt: ::ULONG) -> ::HRESULT,
+    fn Reset(&mut self) -> ::HRESULT,
+    fn Clone(&mut self, ppenum: *mut *mut IEnumFORMATETC) -> ::HRESULT
+}
+);
 //11963
 pub type IFileOperationProgressSink = ::IUnknown; // TODO
 pub type IShellItemArray = ::IUnknown; // TODO

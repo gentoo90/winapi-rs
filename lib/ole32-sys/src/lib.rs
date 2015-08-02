@@ -526,9 +526,9 @@ extern "system" {
     // pub fn StgOpenStorageOnILockBytes();
     // pub fn StgPropertyLengthAsVariant();
     // pub fn StgSetTimes();
-    // pub fn StringFromCLSID();
-    // pub fn StringFromGUID2();
-    // pub fn StringFromIID();
+    pub fn StringFromCLSID(rclsid: REFCLSID, lplpsz: *mut LPOLESTR) -> HRESULT;
+    pub fn StringFromGUID2(rguid: REFGUID, lpsz: LPOLESTR, cchMax: c_int) -> c_int;
+    pub fn StringFromIID(rclsid: REFIID, lplpsz: *mut LPOLESTR) -> HRESULT;
     // pub fn UpdateDCOMSettings();
     // pub fn UtConvertDvtd16toDvtd32();
     // pub fn UtConvertDvtd32toDvtd16();
